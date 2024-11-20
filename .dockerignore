@@ -1,0 +1,8 @@
+node_modules
+vendor
+.git
+.dockerignore
+Dockerfile
+Dockerfile.reverb
+docker-compose.yml
+*.log
