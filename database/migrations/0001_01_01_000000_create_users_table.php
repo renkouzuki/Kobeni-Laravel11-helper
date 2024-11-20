@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('role', ['user', 'doctor'])->default('user');
             $table->string('phone_number')->unique();
             $table->timestamp('phone_verified_at');
-            $table->timestamp('email_verified_at');
+            $table->timestamp('email_verified_at')->nullable()->default(null);
             $table->boolean('available_for_donation')->default(true);
             $table->string('image')->nullable();
             $table->string('location');
