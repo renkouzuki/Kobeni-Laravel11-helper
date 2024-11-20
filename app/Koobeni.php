@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App;
 
+use App\traits\Exceptions;
 use Illuminate\Routing\Controller as BaseController;
 
-class Controller extends BaseController
+class Koobeni extends BaseController
 {
+    use Exceptions;
+
     public function dataResponse($data , $message){
         return response()->json([
             'success'=>true,

@@ -10,7 +10,7 @@ services:
       DB_PASSWORD: 123456
       DB_DATABASE: kilo_blood
     entrypoint: >
-      sh -c "php artisan migrate --seed && php-fpm"
+      sh -c "php kobeni migrate --seed && php-fpm"
     volumes:
       - .:/var/www
     networks:

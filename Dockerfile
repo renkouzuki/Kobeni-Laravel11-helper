@@ -31,7 +31,7 @@ RUN chown -R www-data:www-data /var/www \
 
 # Install Laravel dependencies
 RUN composer install
-RUN php artisan key:generate
+RUN php kobeni key:generate
 
 # Install npm dependencies for Vue.js
 RUN npm install && npm run build

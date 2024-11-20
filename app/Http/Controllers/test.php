@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Koobeni;
 use Illuminate\Http\Request;
 
-class test extends Controller
+class test extends Koobeni
 {
     public function index(){
         return $this->dataResponse([
