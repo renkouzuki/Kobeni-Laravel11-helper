@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\traits\Exceptions;
+use bootstrap\traits\Exceptions;
 use Illuminate\Routing\Controller as BaseController;
 
 class Koobeni extends BaseController

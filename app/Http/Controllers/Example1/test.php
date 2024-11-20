@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Example1;
 
 use App\Koobeni;
 use Illuminate\Http\Request;
