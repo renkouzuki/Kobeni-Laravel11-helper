@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable , SoftDeletes;
+    use HasFactory, Notifiable , SoftDeletes , HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -22,12 +23,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
         'password',
         'phone_number',
         'blood_type',
         'location',
-        'phone_verified_at',
+        'available_for_donation',
+        'image',
         'role'
     ];
 
@@ -39,7 +40,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'role'
+        'role',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -50,10 +53,9 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'phonenumber_verified_at' => 'datetime',
             'password' => 'hashed',
-            'phone_verified_at' => 'datetime',
-            'blood_type' => BloodType::class
+            // 'blood_type' => BloodType::class
         ];
     }
 

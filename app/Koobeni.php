@@ -2,35 +2,28 @@
 
 namespace App;
 
-use bootstrap\traits\Exceptions;
+use App\traits\CustomResponse;
+use App\traits\Exceptions;
+use App\Traits\useExceptions;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class Koobeni extends BaseController
 {
-    use Exceptions;
+    use Exceptions , CustomResponse , useExceptions;
 
-    public function dataResponse($data , $message){
-        return response()->json([
-            'success'=>true,
-            'message' => $message,
-            'data' => $data
-        ],
-        200);
+    public Request $req;
+
+    public function __construct(Request $req) {
+        $this->req = $req;
     }
 
-    public function errorResponse(){
-        return response()->json([
-            'success'=>false,
-            'message' => 'Something went wrong', 
-        ]);
+
+    public function test1(){
+        
     }
 
-    public function paginationResponse($data){
-        return [
-            'current_page' => $data->currentPage(),
-            'page_size' => $data->perPage(),
-            'total_items' => $data->total(),
-            'total_pages' => $data->lastPage(),
-        ];
+    public function test2(){
+
     }
 }

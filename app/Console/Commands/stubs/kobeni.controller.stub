@@ -3,7 +3,6 @@
 namespace DummyNamespace;
 
 use App\Koobeni;
-use Illuminate\Http\Request;
 
 class DummyClass extends Koobeni
 {

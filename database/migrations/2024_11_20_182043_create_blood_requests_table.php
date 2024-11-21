@@ -20,11 +20,9 @@ return new class extends Migration
             $table->text('message')->nullable();
             $table->integer('quantity')->nullable(); 
             $table->timestamps();
-
             $table->foreign('requester_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('donor_id')->references('id')->on('users')->onDelete('set null');;
-
-            $table->index(['requester_id', 'recipient_id' , 'status']);
+            $table->index(['requester_id', 'donor_id' , 'status']);
         });
     }
 
