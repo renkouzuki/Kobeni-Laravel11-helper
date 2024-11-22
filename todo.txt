@@ -1,0 +1,3 @@
+modify query to be re usable and brain dead way
+
+- create and update just pass array if u have a request validate u good to go to update the actual data
