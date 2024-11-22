@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Koobeni;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class Authentication extends Koobeni {
 
@@ -58,6 +60,17 @@ class Authentication extends Koobeni {
             return $this->dataResponse($this->req->user());
         }catch(Exception $e){
             return $this->handleException($e , $this->req);
+        }
+    }
+
+    public function terminateAllDeviceTokens($userId){
+        try {
+            $userTokenData = $this->logAllDevices($userId , 10);
+
+            return $this->paginationDataResponse($userTokenData);
+    
+        } catch (Exception $e) {
+            return $this->handleException($e, $this->req);
         }
     }
 }

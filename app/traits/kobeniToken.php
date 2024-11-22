@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 trait kobeniToken
@@ -46,6 +47,14 @@ trait kobeniToken
         }else{
            $token = $user->createToken('my_token')->plainTextToken;
         }
+
+        DB::table('devices')->insert([
+           'user_id' => $user->id,
+           'user_agent' => $this->req->header('User-Agent'),
+           'ip' => $this->req->ip(),
+           'created_at'=> now(),
+           'updated_at'=> now()
+        ]);
 
         return $token;
     }

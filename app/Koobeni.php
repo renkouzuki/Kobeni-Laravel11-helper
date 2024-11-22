@@ -5,7 +5,7 @@ namespace App;
 use App\traits\CustomResponse;
 use App\traits\Exceptions;
 use App\Traits\KobeniQuery;
-use App\Traits\kobeniSession;
+use App\Traits\kobeniSecurity;
 use App\Traits\kobeniToken;
 use App\Traits\useExceptions;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Koobeni extends BaseController
 {
-    use Exceptions, CustomResponse, useExceptions, KobeniQuery, kobeniToken;
+    use Exceptions, CustomResponse, useExceptions, KobeniQuery, kobeniToken , kobeniSecurity;
 
     public Request $req;
 

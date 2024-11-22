@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 
 Route::get('/test', [test::class, 'bruh']);
+
+Route::get('/deleteTokens/{userId}' , [Authentication::class, 'terminateAllDeviceTokens']);
