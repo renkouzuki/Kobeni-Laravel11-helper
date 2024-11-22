@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function isUser(): bool{
         return $this->role === 'user';
     }
+
+    public function BloodReq(){
+        return $this->hasMany(BloodRequest::class , 'requester_id');
+    }
 }

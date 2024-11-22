@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/logout', [Authentication::class, 'logout']);
     Route::get('/user', [Authentication::class, 'show']);
 });
+
+Route::get('/test', [test::class, 'bruh']);

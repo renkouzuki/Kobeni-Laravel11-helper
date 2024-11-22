@@ -1,66 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Eloquent Query Builder
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This package provides a set of pre-built methods to make querying Eloquent models easier, especially for beginners. These methods abstract away the complexity of commonly used database queries, allowing you to focus on getting data without writing repetitive code.
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+No installation required. This is just a set of helper methods for Eloquent models that can be included in your project. It uses Laravel's built-in Eloquent ORM, so it's compatible with any Laravel project.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Methods Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. `allDataWithSelect()`
 
-## Learning Laravel
+Fetch all data from a model with specified columns, without pagination or limits.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Parameters:**
+- `$Data` (Model class) – The Eloquent model you want to query.
+- `$select` (Array) – An array of column names to retrieve (e.g., `['name', 'email']`).
+- `$relations` (Array or null) – An optional array of related models to eager load (e.g., `['posts', 'comments']`).
+- `$where` (Array or null) – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Example:**
+```php
+$users = $this->allDataWithSelect(
+    User::class,               // The model class
+    ['name', 'email'],         // Columns to select
+    null,                      // No relationships to load
+    [['status', '=', 'active']] // Where condition: status = 'active'
+);
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 2. `allWithPagination()`
 
-## Laravel Sponsors
+The `allWithPagination()` method is designed to fetch data from a model with pagination. This allows you to retrieve a set number of results per page and make the data more manageable, especially when dealing with large datasets. This method will automatically generate the pagination links for you.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### **Parameters:**
 
-### Premium Partners
+- **`$Data` (Model class)** – The Eloquent model you want to query (e.g., `User::class`, `Post::class`).
+- **`$sort` (String)** – The sorting order (either `'latest'` or `'oldest'`).
+    - `'latest'`: Sorts the results by the most recent records.
+    - `'oldest'`: Sorts the results by the oldest records.
+- **`$perPage` (Int)** – The number of results per page. The default is `10`.
+- **`$relations` (Array or null)** – An optional array of relationships to eager load (e.g., `['posts', 'comments']`).
+- **`$select` (Array or null)** – An optional array of columns to retrieve (e.g., `['name', 'email']`).
+- **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### **Returns:**
+This method returns a paginated result object, which can be used directly in your views with pagination links (`$data->links()`).
 
-## Contributing
+### **Example Usage:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### **Example 1: Fetching Active Users, Sorted by Latest**
+```php
+$users = $this->allWithPagination(
+    User::class,               // The model class (User)
+    'latest',                  // Sort by latest
+    10,                        // Limit to 10 results per page
+    null,                      // No relationships to load
+    ['name', 'email'],         // Select only 'name' and 'email' columns
+    [['status', '=', 'active']] // Filter by 'active' status
+);
 
-## Code of Conduct
+### 3. `allWithLimit()`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+The `allWithLimit()` method is designed to fetch a set number of records from a model without pagination. Unlike `allWithPagination()`, it does not include pagination links but allows you to retrieve a fixed number of results based on your limit. This method is useful for cases where you need a quick list of items or an "infinite scroll" style list.
 
-## Security Vulnerabilities
+### **Parameters:**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **`$Data` (Model class)** – The Eloquent model you want to query (e.g., `User::class`, `Post::class`).
+- **`$limit` (Int)** – The number of results to return.
+- **`$sort` (String)** – The sorting order (either `'latest'` or `'oldest'`).
+    - `'latest'`: Sorts the results by the most recent records.
+    - `'oldest'`: Sorts the results by the oldest records.
+- **`$relations` (Array or null)** – An optional array of relationships to eager load (e.g., `['posts', 'comments']`).
+- **`$select` (Array or null)** – An optional array of columns to retrieve (e.g., `['name', 'email']`).
+- **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
-## License
+### **Returns:**
+This method returns a collection of results (not paginated), based on the specified `limit`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **Example Usage:**
+
+#### **Example 1: Fetching Latest Active Users (No Pagination, Limited to 5)**
+```php
+$users = $this->allWithLimit(
+    User::class,               // The model class (User)
+    5,                         // Limit to 5 results
+    'latest',                  // Sort by latest
+    null,                      // No relationships to load
+    ['name', 'email'],         // Select only 'name' and 'email' columns
+    [['status', '=', 'active']] // Filter by 'active' status
+);
+
+### 4. `allData()`
+
+The `allData()` method is a simple method that fetches all records from a model without pagination, limits, or any filtering. It’s ideal when you need to retrieve every record from a table and don’t need the complexity of sorting, filtering, or selecting specific columns. This method returns all the records as a collection.
+
+### **Parameters:**
+
+- **`$Data` (Model class)** – The Eloquent model you want to query (e.g., `User::class`, `Post::class`).
+- **`$relations` (Array or null)** – An optional array of relationships to eager load (e.g., `['posts', 'comments']`).
+- **`$select` (Array or null)** – An optional array of columns to retrieve (e.g., `['name', 'email']`).
+- **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
+
+### **Returns:**
+This method returns a collection of all records (no pagination, no limits). You can also specify conditions (`$where`), eager load relationships (`$relations`), and select specific columns (`$select`).
+
+### **Example Usage:**
+
+#### **Example 1: Fetching All Users**
+```php
+$users = $this->allData(
+    User::class,   // The model class (User)
+    null,          // No relationships to load
+    ['name', 'email']  // Select only 'name' and 'email' columns
+);
+
