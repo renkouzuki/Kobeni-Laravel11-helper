@@ -60,7 +60,9 @@ The `allData()` method is a simple method that fetches all records from a model 
 - **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
 **Example Usages:**
-```php
+```
+//// with select
+php
 $users = $this->allDataWithSelect(
     User::class,               // The model class
     ['name', 'email'],         // Columns to select
@@ -68,6 +70,7 @@ $users = $this->allDataWithSelect(
     [['status', '=', 'active']] // Where condition: status = 'active'
 );
 
+/// with pagination
 php
 $users = $this->allWithPagination(
     User::class,               // The model class (User)
@@ -78,6 +81,7 @@ $users = $this->allWithPagination(
     [['status', '=', 'active']] // Filter by 'active' status
 );
 
+/// with limit for infinite scroll and mores...
 php
 $users = $this->allWithLimit(
     User::class,               // The model class (User)
@@ -88,6 +92,7 @@ $users = $this->allWithLimit(
     [['status', '=', 'active']] // Filter by 'active' status
 );
 
+/// with display all you will get it
 php
 $users = $this->allData(
     User::class,   // The model class (User)
