@@ -65,7 +65,7 @@ class Authentication extends Koobeni {
 
     public function terminateAllDeviceTokens($userId){
         try {
-            $userTokenData = $this->logAllDevices($userId , 10);
+            $userTokenData = $this->logAllDevices($userId , 5);
 
             return $this->paginationDataResponse($userTokenData);
     
