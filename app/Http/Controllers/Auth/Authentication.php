@@ -5,21 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Koobeni;
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-
 class Authentication extends Koobeni {
 
     public function register(){
         try{
             $cred = $this->req->validate([
                 'name' => 'required|string',
-                'phone_number' => 'required|string|unique:users,phone_number',
+                'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|confirmed',
-                'blood_type' => 'required|string',
-                'location' => 'required|string',
-                'role' => 'required|string'
             ]);
 
             $user = $this->TokenRegister($cred , User::class , false , null);
@@ -34,7 +27,7 @@ class Authentication extends Koobeni {
     public function login(){
         try{
             $cred = $this->req->validate([
-                'phone_number' => 'required|string',
+                'email' => 'required|string',
                 'password' => 'required|string'
             ]);
 
@@ -60,17 +53,6 @@ class Authentication extends Koobeni {
             return $this->dataResponse($this->req->user());
         }catch(Exception $e){
             return $this->handleException($e , $this->req);
-        }
-    }
-
-    public function terminateAllDeviceTokens($userId){
-        try {
-            $userTokenData = $this->logAllDevices($userId , 5);
-
-            return $this->paginationDataResponse($userTokenData);
-    
-        } catch (Exception $e) {
-            return $this->handleException($e, $this->req);
         }
     }
 }

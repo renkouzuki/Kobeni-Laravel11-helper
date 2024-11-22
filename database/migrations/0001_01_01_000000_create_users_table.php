@@ -14,26 +14,19 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone_number')->unique();
-            $table->enum('blood_type', [
-                'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'
-            ]);
-            $table->enum('role', ['user', 'doctor'])->default('user');
-            $table->timestamp('phonenumber_verified_at')->nullable()->default(null);
-            $table->boolean('available_for_donation')->default(true);
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable()->default(null);
             $table->string('image')->nullable();
-            $table->string('location');
             $table->string('password');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
 
-            $table->index(['phone_number' ,'location' , 'created_at']);
-
+            $table->index(['name', 'email', 'created_at']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('phone_number')->primary();
+            $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });

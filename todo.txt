@@ -1,6 +1,0 @@
-- add one time login auth
-
-- add security settings 
--> terminate all devices
--> terminate specific device
--> alert which device login 

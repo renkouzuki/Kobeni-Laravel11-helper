@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\BloodType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,12 +23,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'password',
-        'phone_number',
-        'blood_type',
-        'location',
-        'available_for_donation',
+        'email',
         'image',
-        'role'
     ];
 
     /**
@@ -40,7 +35,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'role',
         'created_at',
         'updated_at',
     ];
@@ -53,21 +47,8 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'phonenumber_verified_at' => 'datetime',
+            'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            // 'blood_type' => BloodType::class
         ];
-    }
-
-    public function isDoctor(): bool{
-        return $this->role === 'doctor';
-    }
-
-    public function isUser(): bool{
-        return $this->role === 'user';
-    }
-
-    public function BloodReq(){
-        return $this->hasMany(BloodRequest::class , 'requester_id');
     }
 }
