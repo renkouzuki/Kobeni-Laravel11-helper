@@ -18,15 +18,6 @@ Fetch all data from a model with specified columns, without pagination or limits
 - `$relations` (Array or null) – An optional array of related models to eager load (e.g., `['posts', 'comments']`).
 - `$where` (Array or null) – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
-**Example:**
-```php
-$users = $this->allDataWithSelect(
-    User::class,               // The model class
-    ['name', 'email'],         // Columns to select
-    null,                      // No relationships to load
-    [['status', '=', 'active']] // Where condition: status = 'active'
-);```
-
 ## 2. `allWithPagination()`
 
 The `allWithPagination()` method is designed to fetch data from a model with pagination. This allows you to retrieve a set number of results per page and make the data more manageable, especially when dealing with large datasets. This method will automatically generate the pagination links for you.
@@ -41,22 +32,6 @@ The `allWithPagination()` method is designed to fetch data from a model with pag
 - **`$relations` (Array or null)** – An optional array of relationships to eager load (e.g., `['posts', 'comments']`).
 - **`$select` (Array or null)** – An optional array of columns to retrieve (e.g., `['name', 'email']`).
 - **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
-
-### **Returns:**
-This method returns a paginated result object, which can be used directly in your views with pagination links (`$data->links()`).
-
-### **Example Usage:**
-
-#### **Example 1: Fetching Active Users, Sorted by Latest**
-```php
-$users = $this->allWithPagination(
-    User::class,               // The model class (User)
-    'latest',                  // Sort by latest
-    10,                        // Limit to 10 results per page
-    null,                      // No relationships to load
-    ['name', 'email'],         // Select only 'name' and 'email' columns
-    [['status', '=', 'active']] // Filter by 'active' status
-);```
 
 ### 3. `allWithLimit()`
 
@@ -73,22 +48,6 @@ The `allWithLimit()` method is designed to fetch a set number of records from a 
 - **`$select` (Array or null)** – An optional array of columns to retrieve (e.g., `['name', 'email']`).
 - **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
-### **Returns:**
-This method returns a collection of results (not paginated), based on the specified `limit`.
-
-### **Example Usage:**
-
-#### **Example 1: Fetching Latest Active Users (No Pagination, Limited to 5)**
-```php
-$users = $this->allWithLimit(
-    User::class,               // The model class (User)
-    5,                         // Limit to 5 results
-    'latest',                  // Sort by latest
-    null,                      // No relationships to load
-    ['name', 'email'],         // Select only 'name' and 'email' columns
-    [['status', '=', 'active']] // Filter by 'active' status
-);```
-
 ### 4. `allData()`
 
 The `allData()` method is a simple method that fetches all records from a model without pagination, limits, or any filtering. It’s ideal when you need to retrieve every record from a table and don’t need the complexity of sorting, filtering, or selecting specific columns. This method returns all the records as a collection.
@@ -100,16 +59,38 @@ The `allData()` method is a simple method that fetches all records from a model 
 - **`$select` (Array or null)** – An optional array of columns to retrieve (e.g., `['name', 'email']`).
 - **`$where` (Array or null)** – An optional array of conditions for filtering the query (e.g., `[['status', '=', 'active']]`).
 
-### **Returns:**
-This method returns a collection of all records (no pagination, no limits). You can also specify conditions (`$where`), eager load relationships (`$relations`), and select specific columns (`$select`).
-
-### **Example Usage:**
-
-#### **Example 1: Fetching All Users**
+**Example Usages:**
 ```php
+$users = $this->allDataWithSelect(
+    User::class,               // The model class
+    ['name', 'email'],         // Columns to select
+    null,                      // No relationships to load
+    [['status', '=', 'active']] // Where condition: status = 'active'
+);
+
+php
+$users = $this->allWithPagination(
+    User::class,               // The model class (User)
+    'latest',                  // Sort by latest
+    10,                        // Limit to 10 results per page
+    null,                      // No relationships to load
+    ['name', 'email'],         // Select only 'name' and 'email' columns
+    [['status', '=', 'active']] // Filter by 'active' status
+);
+
+php
+$users = $this->allWithLimit(
+    User::class,               // The model class (User)
+    5,                         // Limit to 5 results
+    'latest',                  // Sort by latest
+    null,                      // No relationships to load
+    ['name', 'email'],         // Select only 'name' and 'email' columns
+    [['status', '=', 'active']] // Filter by 'active' status
+);
+
+php
 $users = $this->allData(
     User::class,   // The model class (User)
     null,          // No relationships to load
     ['name', 'email']  // Select only 'name' and 'email' columns
-);```
-
+);
