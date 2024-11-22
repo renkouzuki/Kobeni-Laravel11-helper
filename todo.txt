@@ -2,8 +2,6 @@
 
 - add security settings
 
-- add kobeniCookieSession and kobeniToken
+- add kobeniCookieSession
 
-- revise the authentication method
-
-- custom handler error for kobeniSession and token 
+- custom handler error for kobeniSession
