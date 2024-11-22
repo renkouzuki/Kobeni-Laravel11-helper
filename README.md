@@ -25,7 +25,7 @@ $users = $this->allDataWithSelect(
     ['name', 'email'],         // Columns to select
     null,                      // No relationships to load
     [['status', '=', 'active']] // Where condition: status = 'active'
-);
+);```
 
 ## 2. `allWithPagination()`
 
@@ -56,7 +56,7 @@ $users = $this->allWithPagination(
     null,                      // No relationships to load
     ['name', 'email'],         // Select only 'name' and 'email' columns
     [['status', '=', 'active']] // Filter by 'active' status
-);
+);```
 
 ### 3. `allWithLimit()`
 
@@ -87,7 +87,7 @@ $users = $this->allWithLimit(
     null,                      // No relationships to load
     ['name', 'email'],         // Select only 'name' and 'email' columns
     [['status', '=', 'active']] // Filter by 'active' status
-);
+);```
 
 ### 4. `allData()`
 
@@ -111,5 +111,5 @@ $users = $this->allData(
     User::class,   // The model class (User)
     null,          // No relationships to load
     ['name', 'email']  // Select only 'name' and 'email' columns
-);
+);```
 
