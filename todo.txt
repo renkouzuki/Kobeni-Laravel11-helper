@@ -1,3 +1,11 @@
 modify query to be re usable and brain dead way
 
-- create and update just pass array if u have a request validate u good to go to update the actual data
+- add one time login auth
+
+- add security settings
+
+- add kobeniCookieSession and kobeniToken
+
+- revise the authentication method
+
+- custom handler error for kobeniSession and token 
