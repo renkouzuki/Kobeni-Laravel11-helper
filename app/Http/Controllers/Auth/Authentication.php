@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Koobeni;
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class Authentication extends Koobeni {
 
     public function register(){
         try{
-            $this->req->validate([
+            $cred = $this->req->validate([
                 'name' => 'required|string',
                 'phone_number' => 'required|string|unique:users,phone_number',
                 'password' => 'required|string|confirmed',
@@ -21,14 +20,7 @@ class Authentication extends Koobeni {
                 'role' => 'required|string'
             ]);
 
-            $user = User::create([
-                'name' => $this->req->name,
-                'phone_number' => $this->req->phone_number,
-                'password' => Hash::make($this->req->password),
-                'blood_type' => $this->req->blood_type,
-                'location' => $this->req->location,
-                'role' => $this->req->role
-            ]);
+            $user = $this->kobeniRegister($cred , User::class , false , null);
 
             return $this->dataResponse($user);
 
@@ -44,16 +36,9 @@ class Authentication extends Koobeni {
                 'password' => 'required|string'
             ]);
 
-            $user = User::where('phone_number' , $cred['phone_number'])->first();
+            $data = $this->kobeniLogin($cred , User::class , null);
 
-            if(!$user || !Hash::check($cred['password'] , $user->password)){
-               return $this->Validation(['password' => ['The provided credentials are incorrect.']]);
-            }
-
-            $expireDate = now()->addDays(7);
-            $token = $user->createToken('my_token', expiresAt: $expireDate)->plainTextToken;
-            return $this->dataResponse($token);
-
+            return $this->dataResponse($data);
         }catch(Exception $e){
             return $this->handleException($e , $this->req);
         }
@@ -61,7 +46,8 @@ class Authentication extends Koobeni {
 
     public function logout(){
         try{
-            $this->req->user()->currentAccessToken()->delete();
+            $this->kobeniLogout($this->req->user());
+            return $this->dataResponse(null,'Logout successfully');
         }catch(Exception $e){
             return $this->handleException($e , $this->req);
         }

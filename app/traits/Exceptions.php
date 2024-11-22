@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,10 @@ trait Exceptions
                 'status' => 422,
                 'message' => 'Validation failed',
                 'errors' => fn($exception) => $this->formatValidationError($exception->errors()),
+            ],
+            AuthenticationException::class => [
+                'status' => 401,
+                'message' => fn($exception) => $exception->getMessage() ?? 'Unauthenticated'
             ],
             ModelNotFoundException::class => [
                 'status' => 404,

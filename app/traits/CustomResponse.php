@@ -6,11 +6,16 @@ trait CustomResponse
 {
     public function dataResponse($data, $message = 'Successfully')
     {
-        return response()->json([
+        $response = [
             'success' => true,
             'message' => $message,
-            'data' => $data
-        ], 200);
+        ];
+
+        if($data !== null) {
+            $response['data'] = $data;
+        }
+
+        return response()->json($response, 200);
     }
 
     public function paginationResponse($data)
@@ -35,10 +40,15 @@ trait CustomResponse
 
     public function createdResponse($data, $message = 'Successfully')
     {
-        return response()->json([
+        $response = [
             'success' => true,
             'message' => $message,
-            'data' => $data
-        ], 201);
+        ];
+
+        if($data !== null) {
+            $response['data'] = $data;
+        }
+
+        return response()->json($response, 201);
     }
 }

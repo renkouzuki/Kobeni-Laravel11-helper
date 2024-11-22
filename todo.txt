@@ -1,5 +1,3 @@
-modify query to be re usable and brain dead way
-
 - add one time login auth
 
 - add security settings
