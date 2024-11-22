@@ -1,7 +1,6 @@
 - add one time login auth
 
-- add security settings
-
-- add kobeniCookieSession
-
-- custom handler error for kobeniSession
+- add security settings 
+-> terminate all devices
+-> terminate specific device
+-> alert which device login

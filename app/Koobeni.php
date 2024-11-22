@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Koobeni extends BaseController
 {
-    use Exceptions, CustomResponse, useExceptions, KobeniQuery, kobeniToken, kobeniSession;
+    use Exceptions, CustomResponse, useExceptions, KobeniQuery, kobeniToken;
 
     public Request $req;
 

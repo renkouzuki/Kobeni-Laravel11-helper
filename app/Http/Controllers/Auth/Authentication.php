@@ -20,7 +20,7 @@ class Authentication extends Koobeni {
                 'role' => 'required|string'
             ]);
 
-            $user = $this->kobeniRegister($cred , User::class , false , null);
+            $user = $this->TokenRegister($cred , User::class , false , null);
 
             return $this->dataResponse($user);
 
@@ -36,7 +36,7 @@ class Authentication extends Koobeni {
                 'password' => 'required|string'
             ]);
 
-            $data = $this->kobeniLogin($cred , User::class , null);
+            $data = $this->TokenLogin($cred , User::class , null);
 
             return $this->dataResponse($data);
         }catch(Exception $e){
@@ -46,7 +46,7 @@ class Authentication extends Koobeni {
 
     public function logout(){
         try{
-            $this->kobeniLogout($this->req->user());
+            $this->TokenLogout($this->req->user());
             return $this->dataResponse(null,'Logout successfully');
         }catch(Exception $e){
             return $this->handleException($e , $this->req);

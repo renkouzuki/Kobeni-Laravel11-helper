@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Hash;
 
 trait kobeniToken
 {
-    public function kobeniRegister($data , $model , $token = true , $date){
-        if(!isset($data['password'])){
+    public function TokenRegister($credentials , $model , $token = true , $date){
+        if(!isset($credentials['password'])){
             throw new AuthenticationException('Need to key["password"]!');
         }
 
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = Hash::make($credentials['password']);
 
-        $user = $model::create($data);
+        $user = $model::create($credentials);
 
         if($token == true){
             $expireDate = now()->addDays($date);
@@ -28,9 +28,9 @@ trait kobeniToken
         return $user;        
     }
 
-    public function kobeniLogin($data , $model , $date){
-        $keys = array_keys($data);
-        $values = array_values($data);
+    public function TokenLogin($credentials , $model , $date){
+        $keys = array_keys($credentials);
+        $values = array_values($credentials);
         $user = $model::where($keys[0] , $values[0])->first();
 
         if(!$user || !Hash::check($values[1] , $user->password)){
@@ -50,7 +50,7 @@ trait kobeniToken
         return $token;
     }
 
-    public function kobeniLogout($user){
+    public function TokenLogout($user){
         $user->currentAccessToken()->delete();
     }
 }
