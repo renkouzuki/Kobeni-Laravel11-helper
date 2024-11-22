@@ -2,12 +2,12 @@
 
 namespace App;
 
-use App\traits\CustomResponse;
-use App\traits\Exceptions;
-use App\Traits\KobeniQuery;
-use App\Traits\kobeniSecurity;
-use App\Traits\kobeniToken;
-use App\Traits\useExceptions;
+use Storage\utils\CustomResponse;
+use Storage\utils\Exceptions;
+use Storage\utils\KobeniQuery;
+use Storage\utils\kobeniSecurity;
+use Storage\utils\kobeniToken;
+use Storage\utils\useExceptions;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 

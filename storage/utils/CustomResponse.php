@@ -1,6 +1,6 @@
 <?php
 
-namespace App\traits;
+namespace Storage\utils;
 
 trait CustomResponse
 {

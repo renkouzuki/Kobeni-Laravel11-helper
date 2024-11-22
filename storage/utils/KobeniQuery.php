@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace Storage\utils;
 
 use Database\QueryBuilder\Delete;
 use Database\QueryBuilder\FindAll;

@@ -25,7 +25,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Database\\QueryBuilder\\": "database/QueryBuilder/"
+            "Database\\QueryBuilder\\": "database/QueryBuilder/",
+            "Storage\\utils\\": "storage/utils/"
         }
     },
     "autoload-dev": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace Storage\utils;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
